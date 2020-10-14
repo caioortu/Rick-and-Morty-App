@@ -99,13 +99,9 @@
 		25972A292537598A00EE4372 /* Rick and Morty App */ = {
 			isa = PBXGroup;
 			children = (
-				25972A2A2537598A00EE4372 /* AppDelegate.swift */,
-				25972A2C2537598A00EE4372 /* SceneDelegate.swift */,
-				25972A2E2537598A00EE4372 /* ViewController.swift */,
-				25972A302537598A00EE4372 /* Main.storyboard */,
-				25972A332537598B00EE4372 /* Assets.xcassets */,
-				25972A352537598B00EE4372 /* LaunchScreen.storyboard */,
-				25972A382537598B00EE4372 /* Info.plist */,
+				25972A5E25375AAD00EE4372 /* App */,
+				25972A5F25375AF900EE4372 /* Sources */,
+				25972A5D25375A8E00EE4372 /* Supporting Files */,
 			);
 			path = "Rick and Morty App";
 			sourceTree = "<group>";
@@ -126,6 +122,34 @@
 				25972A4E2537598B00EE4372 /* Info.plist */,
 			);
 			path = "Rick and Morty AppUITests";
+			sourceTree = "<group>";
+		};
+		25972A5D25375A8E00EE4372 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				25972A302537598A00EE4372 /* Main.storyboard */,
+				25972A332537598B00EE4372 /* Assets.xcassets */,
+				25972A352537598B00EE4372 /* LaunchScreen.storyboard */,
+				25972A382537598B00EE4372 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		25972A5E25375AAD00EE4372 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				25972A2A2537598A00EE4372 /* AppDelegate.swift */,
+				25972A2C2537598A00EE4372 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		25972A5F25375AF900EE4372 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				25972A2E2537598A00EE4372 /* ViewController.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,7 +462,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C589G3PG8Y;
-				INFOPLIST_FILE = "Rick and Morty App/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Rick and Morty App/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,7 +481,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C589G3PG8Y;
-				INFOPLIST_FILE = "Rick and Morty App/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Rick and Morty App/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
