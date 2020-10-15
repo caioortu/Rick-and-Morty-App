@@ -10,8 +10,8 @@ import UIKit
 class MainViewController: UIViewController {
     
     // MARK: Private attributes
-    private let viewModel: MainViewModelType
-    private lazy var mainView = MainView()
+    private let mainView = MainView()
+    private var viewModel: MainViewModelType
     
     // MARK: Init
     init(viewModel: MainViewModelType) {
@@ -33,18 +33,35 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         mainView.tableView.dataSource = self
+        viewModel.delegate = self
+        viewModel.getCharacters()
     }
 }
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        viewModel.characters?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "rick")
-        cell.textLabel?.text = "Hello World!!"
+        let character = viewModel.characters?[indexPath.row]
+        cell.textLabel?.text = character?.name
         
         return cell
+    }
+}
+
+extension MainViewController: MainViewModelProtocol {
+    func didGetCharacters() {
+        mainView.tableView.reloadData()
+    }
+    
+    func willShowAlert(title: String?, message: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
