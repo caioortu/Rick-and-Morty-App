@@ -7,11 +7,13 @@
 
 import Foundation
 
+//MARK: MainViewModelProtocol
 protocol MainViewModelProtocol: class {
     func didGetCharacters()
     func willShowAlert(title: String?, message: String?)
 }
 
+//MARK: MainViewModelType
 protocol MainViewModelType {
     var delegate: MainViewModelProtocol? { get set }
     var characters: [Character]? { get }
@@ -29,11 +31,13 @@ class MainViewModel: MainViewModelType {
         network.get("/character/") { [weak self] result in
             switch result {
             case .success(let response):
-                if let characters = try? JSONDecoder().decode(Character.Response.self, from: response.data) {
+                do {
+                    let characters = try JSONDecoder().decode(Response<Character>.self, from: response.data)
                     self?.characters = characters.results
                     self?.delegate?.didGetCharacters()
-                } else {
+                } catch {
                     self?.delegate?.willShowAlert(title: "Oops!!", message: "Could not get the characters")
+                    debugPrint(error.localizedDescription)
                 }
             case .failure(let response):
                 self?.delegate?.willShowAlert(title: "Oops!!", message: response.error.localizedDescription)

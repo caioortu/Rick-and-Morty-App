@@ -72,12 +72,25 @@ extension UIView {
         return anchors
     }
 
-    func anchorTo(superview: UIView, safeArea: Bool = true) {
+    func anchorTo(superview: UIView,
+                  topConstant: CGFloat = 0,
+                  leftConstant: CGFloat = 0,
+                  bottomConstant: CGFloat = 0,
+                  rightConstant: CGFloat = 0,
+                  widthConstant: CGFloat = 0,
+                  heightConstant: CGFloat = 0,
+                  safeArea: Bool = true) {
         anchor(
             top: safeArea ? superview.safeAreaLayoutGuide.topAnchor : superview.topAnchor,
             left: safeArea ? superview.safeAreaLayoutGuide.leftAnchor : superview.leftAnchor,
             bottom: safeArea ? superview.safeAreaLayoutGuide.bottomAnchor : superview.bottomAnchor,
-            right: safeArea ? superview.safeAreaLayoutGuide.rightAnchor : superview.rightAnchor
+            right: safeArea ? superview.safeAreaLayoutGuide.rightAnchor : superview.rightAnchor,
+            topConstant: topConstant,
+            leftConstant: leftConstant,
+            bottomConstant: bottomConstant,
+            rightConstant: rightConstant,
+            widthConstant: widthConstant,
+            heightConstant: heightConstant
         )
     }
     

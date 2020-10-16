@@ -9,20 +9,33 @@ import Foundation
 
 struct Network {
     
+    // MARK: SuccessResponse
     struct SuccessResponse {
         let data: Data
         let urlResponse: URLResponse
     }
     
+    // MARK: FailureResponse
     struct FailureResponse: Error {
         let error: NSError
         let urlResponse: URLResponse
     }
     
+    // MARK: Private Set Attributes
     private(set) var baseURL: String = ""
     private(set) var configuration: URLSessionConfiguration = .default
+    
+    // MARK: Public Attributes
     var headerFields: [String: String]?
     
+    // MARK: Public Functions
+    
+    /// GET request to the specified path.
+    ///
+    /// - Parameters:
+    ///   - path: The path for the GET request.
+    ///   - parameters: The parameters to be used in the request.
+    ///   - completion: The result of the operation, either a `SuccessResponse` or `FailureResponse`.
     func get(_ path: String,
              parameters: [String: Any]? = nil,
              completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void) {

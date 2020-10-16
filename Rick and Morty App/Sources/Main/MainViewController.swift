@@ -33,25 +33,39 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         mainView.tableView.dataSource = self
+        registerCells()
+        
         viewModel.delegate = self
         viewModel.getCharacters()
     }
+    
+    // MARK: Private functions
+    private func registerCells() {
+        mainView.tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: CharacterTableViewCell.identifier)
+    }
 }
 
+// MARK: UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.characters?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "rick")
-        let character = viewModel.characters?[indexPath.row]
-        cell.textLabel?.text = character?.name
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterTableViewCell.identifier,
+                                                       for: indexPath) as? CharacterTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        if let character = viewModel.characters?[safe: indexPath.row] {
+            cell.set(character: character)
+        }
         
         return cell
     }
 }
 
+// MARK: MainViewModelProtocol
 extension MainViewController: MainViewModelProtocol {
     func didGetCharacters() {
         mainView.tableView.reloadData()

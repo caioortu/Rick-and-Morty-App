@@ -9,30 +9,37 @@ import Foundation
 
 struct Character: Codable {
     
-    struct Response: Codable {
-        let results: [Character]
-    }
-    
+    // MARK: Schema
     let id: Int
     let name: String
-//    let status: String
-//    let species: String
-//    let type: String
-//    let gender: String
-//    "origin": {
-//      "name": "Earth (C-137)",
-//      "url": "https://rickandmortyapi.com/api/location/1"
-//    },
-//    "location": {
-//      "name": "Earth (Replacement Dimension)",
-//      "url": "https://rickandmortyapi.com/api/location/20"
-//    },
-//    "image": "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-//    "episode": [
-//      "https://rickandmortyapi.com/api/episode/1",
-//      "https://rickandmortyapi.com/api/episode/2",
-//      // ...
-//    ],
-//    "url": "https://rickandmortyapi.com/api/character/1",
-//    "created": "2017-11-04T18:48:46.250Z"
+    let status: String
+    let species: String
+    let type: String
+    let gender: Gender
+    let origin: Location
+    let location: Location
+    let image: String
+    let episode: [String]
+    let url: String
+    let created: String
+}
+
+// MARK: Loacation
+extension Character {
+    struct Location: Codable {
+        
+        // MARK: Schema
+        let name: String
+        let url: String
+    }
+}
+
+// MARK: Gender
+extension Character {
+    enum Gender: String, Codable {
+        case male = "Male"
+        case female = "Female"
+        case genderless = "Genderless"
+        case unknown
+    }
 }

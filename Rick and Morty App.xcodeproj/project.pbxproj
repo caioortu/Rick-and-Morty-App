@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		25622AE82538C785002EF197 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25622AE72538C785002EF197 /* Character.swift */; };
+		256F6CA72539B21800EE0528 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CA62539B21800EE0528 /* CharacterTableViewCell.swift */; };
+		256F6CAF2539B2A600EE0528 /* Collection+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CAE2539B2A600EE0528 /* Collection+Safe.swift */; };
+		256F6CB72539B69500EE0528 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CB62539B69500EE0528 /* Location.swift */; };
+		256F6CBC2539B70800EE0528 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CBB2539B70800EE0528 /* Response.swift */; };
+		256F6CF02539C4C100EE0528 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CEF2539C4C100EE0528 /* NSObject+Extension.swift */; };
+		256F6CF52539C4FF00EE0528 /* Cell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CF42539C4FF00EE0528 /* Cell+Extension.swift */; };
+		256F6CFA2539C9AB00EE0528 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CF92539C9AB00EE0528 /* NSAttributedString+Extension.swift */; };
 		25972A2B2537598A00EE4372 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25972A2A2537598A00EE4372 /* AppDelegate.swift */; };
 		25972A2D2537598A00EE4372 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25972A2C2537598A00EE4372 /* SceneDelegate.swift */; };
 		25972A2F2537598A00EE4372 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25972A2E2537598A00EE4372 /* MainViewController.swift */; };
@@ -40,6 +47,13 @@
 
 /* Begin PBXFileReference section */
 		25622AE72538C785002EF197 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		256F6CA62539B21800EE0528 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
+		256F6CAE2539B2A600EE0528 /* Collection+Safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Safe.swift"; sourceTree = "<group>"; };
+		256F6CB62539B69500EE0528 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		256F6CBB2539B70800EE0528 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		256F6CEF2539C4C100EE0528 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		256F6CF42539C4FF00EE0528 /* Cell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cell+Extension.swift"; sourceTree = "<group>"; };
+		256F6CF92539C9AB00EE0528 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		25972A272537598A00EE4372 /* Rick and Morty App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rick and Morty App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25972A2A2537598A00EE4372 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25972A2C2537598A00EE4372 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,8 +102,18 @@
 			isa = PBXGroup;
 			children = (
 				25622AE72538C785002EF197 /* Character.swift */,
+				256F6CB62539B69500EE0528 /* Location.swift */,
+				256F6CBB2539B70800EE0528 /* Response.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		256F6CA52539B1E200EE0528 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				256F6CA62539B21800EE0528 /* CharacterTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		25972A1E2537598A00EE4372 = {
@@ -115,9 +139,9 @@
 		25972A292537598A00EE4372 /* Rick and Morty App */ = {
 			isa = PBXGroup;
 			children = (
-				25622AE62538C757002EF197 /* Models */,
 				25972A5E25375AAD00EE4372 /* App */,
 				25984F6A2537643200AC15A2 /* Common */,
+				25622AE62538C757002EF197 /* Models */,
 				25984F7C25376B2E00AC15A2 /* Networking */,
 				25972A5F25375AF900EE4372 /* Sources */,
 				25972A5D25375A8E00EE4372 /* Supporting Files */,
@@ -173,6 +197,7 @@
 		25984F6125375D7100AC15A2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				256F6CA52539B1E200EE0528 /* Cells */,
 				25972A2E2537598A00EE4372 /* MainViewController.swift */,
 				25984F6525375D9B00AC15A2 /* MainView.swift */,
 				25984F77253767D500AC15A2 /* MainViewModel.swift */,
@@ -192,6 +217,10 @@
 			isa = PBXGroup;
 			children = (
 				25984F6C2537647B00AC15A2 /* UIView+AutoLayout.swift */,
+				256F6CAE2539B2A600EE0528 /* Collection+Safe.swift */,
+				256F6CEF2539C4C100EE0528 /* NSObject+Extension.swift */,
+				256F6CF42539C4FF00EE0528 /* Cell+Extension.swift */,
+				256F6CF92539C9AB00EE0528 /* NSAttributedString+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -334,11 +363,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				25972A2F2537598A00EE4372 /* MainViewController.swift in Sources */,
+				256F6CF52539C4FF00EE0528 /* Cell+Extension.swift in Sources */,
+				256F6CB72539B69500EE0528 /* Location.swift in Sources */,
 				25984F6625375D9B00AC15A2 /* MainView.swift in Sources */,
+				256F6CA72539B21800EE0528 /* CharacterTableViewCell.swift in Sources */,
 				25972A2B2537598A00EE4372 /* AppDelegate.swift in Sources */,
+				256F6CAF2539B2A600EE0528 /* Collection+Safe.swift in Sources */,
+				256F6CBC2539B70800EE0528 /* Response.swift in Sources */,
+				256F6CF02539C4C100EE0528 /* NSObject+Extension.swift in Sources */,
 				25984F6D2537647B00AC15A2 /* UIView+AutoLayout.swift in Sources */,
 				25972A2D2537598A00EE4372 /* SceneDelegate.swift in Sources */,
 				25984F7E25376B5200AC15A2 /* NetworkController.swift in Sources */,
+				256F6CFA2539C9AB00EE0528 /* NSAttributedString+Extension.swift in Sources */,
 				25984F78253767D500AC15A2 /* MainViewModel.swift in Sources */,
 				25622AE82538C785002EF197 /* Character.swift in Sources */,
 			);

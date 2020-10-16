@@ -9,6 +9,7 @@ import UIKit
 
 class MainView: UIView {
     
+    //MARK: Public Attributes
     let tableView = UITableView()
     
     // MARK: Init
