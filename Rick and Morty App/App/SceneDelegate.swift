@@ -16,12 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
-        let mainViewModel = MainViewModel()
+        AppearanceConfigurator.configure()
+        
+        let network = Network(baseURL: "https://rickandmortyapi.com/api")
+        let networkController = MainNetworkController(network: network)
+        let mainViewModel = MainViewModel(networkController: networkController)
         let mainViewController = MainViewController(viewModel: mainViewModel)
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = mainViewController
+        window.rootViewController = CustomNavigationController(rootViewController: mainViewController)
         self.window = window
         window.makeKeyAndVisible()
     }

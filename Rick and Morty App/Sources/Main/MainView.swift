@@ -11,6 +11,7 @@ class MainView: UIView {
     
     //MARK: Public Attributes
     let tableView = UITableView()
+    let activityIndicator = UIActivityIndicatorView(style: .large)
     
     // MARK: Init
     override init(frame: CGRect) {
@@ -26,13 +27,21 @@ class MainView: UIView {
     //MARK: Private functions
     private func setUpLayout() {
         backgroundColor = .white
-        setUpTableView()
+        setupTableView()
+        setupActivityIndicator()
     }
     
-    private func setUpTableView() {
+    private func setupTableView() {
         addSubview(tableView)
         
         tableView.anchorTo(superview: self)
+    }
+    
+    private func setupActivityIndicator() {
+        activityIndicator.hidesWhenStopped = true
+        
+        addSubview(activityIndicator)
+        activityIndicator.anchorCenterSuperview()
     }
     
 }

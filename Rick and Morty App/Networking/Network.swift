@@ -7,19 +7,25 @@
 
 import Foundation
 
-struct Network {
-    
-    // MARK: SuccessResponse
-    struct SuccessResponse {
-        let data: Data
-        let urlResponse: URLResponse
-    }
-    
-    // MARK: FailureResponse
-    struct FailureResponse: Error {
-        let error: NSError
-        let urlResponse: URLResponse
-    }
+protocol NetworkHandler {
+    var baseURL: String { get }
+    var configuration: URLSessionConfiguration { get }
+    func get(_ path: String,
+             parameters: [String: String]?,
+             completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void)
+}
+
+struct SuccessResponse {
+    let data: Data
+    let urlResponse: URLResponse
+}
+
+struct FailureResponse: Error {
+    let error: NSError
+    let urlResponse: URLResponse
+}
+
+struct Network: NetworkHandler {
     
     // MARK: Private Set Attributes
     private(set) var baseURL: String = ""
@@ -37,7 +43,7 @@ struct Network {
     ///   - parameters: The parameters to be used in the request.
     ///   - completion: The result of the operation, either a `SuccessResponse` or `FailureResponse`.
     func get(_ path: String,
-             parameters: [String: Any]? = nil,
+             parameters: [String: String]? = nil,
              completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void) {
         let urlString = baseURL + path
         guard let url = URL(string: urlString) else {
@@ -52,9 +58,7 @@ struct Network {
             }
         }
         
-        if let parameters = parameters {
-            request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-        }
+        request = request.encode(with: parameters)
         
         let session = URLSession(configuration: configuration)
         

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25161EE3253A37370076A3BC /* AppearanceConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25161EE2253A37370076A3BC /* AppearanceConfigurator.swift */; };
+		25161EF5253A3F4B0076A3BC /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25161EF4253A3F4B0076A3BC /* CustomNavigationController.swift */; };
+		25161EFC253A444C0076A3BC /* AlertDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25161EFB253A444C0076A3BC /* AlertDisplayer.swift */; };
+		25161F01253A48D20076A3BC /* MainNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25161F00253A48D20076A3BC /* MainNetworkController.swift */; };
+		25161F06253B22100076A3BC /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25161F05253B22100076A3BC /* URLRequest+Extension.swift */; };
 		25622AE82538C785002EF197 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25622AE72538C785002EF197 /* Character.swift */; };
 		256F6CA72539B21800EE0528 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CA62539B21800EE0528 /* CharacterTableViewCell.swift */; };
 		256F6CAF2539B2A600EE0528 /* Collection+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F6CAE2539B2A600EE0528 /* Collection+Safe.swift */; };
@@ -25,7 +30,7 @@
 		25984F6625375D9B00AC15A2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25984F6525375D9B00AC15A2 /* MainView.swift */; };
 		25984F6D2537647B00AC15A2 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25984F6C2537647B00AC15A2 /* UIView+AutoLayout.swift */; };
 		25984F78253767D500AC15A2 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25984F77253767D500AC15A2 /* MainViewModel.swift */; };
-		25984F7E25376B5200AC15A2 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25984F7D25376B5200AC15A2 /* NetworkController.swift */; };
+		25984F7E25376B5200AC15A2 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25984F7D25376B5200AC15A2 /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +51,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25161EE2253A37370076A3BC /* AppearanceConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceConfigurator.swift; sourceTree = "<group>"; };
+		25161EF4253A3F4B0076A3BC /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		25161EFB253A444C0076A3BC /* AlertDisplayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplayer.swift; sourceTree = "<group>"; };
+		25161F00253A48D20076A3BC /* MainNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNetworkController.swift; sourceTree = "<group>"; };
+		25161F05253B22100076A3BC /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		25622AE72538C785002EF197 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		256F6CA62539B21800EE0528 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		256F6CAE2539B2A600EE0528 /* Collection+Safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Safe.swift"; sourceTree = "<group>"; };
@@ -70,7 +80,7 @@
 		25984F6525375D9B00AC15A2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		25984F6C2537647B00AC15A2 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 		25984F77253767D500AC15A2 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		25984F7D25376B5200AC15A2 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		25984F7D25376B5200AC15A2 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25161EE1253A371B0076A3BC /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				25161EE2253A37370076A3BC /* AppearanceConfigurator.swift */,
+			);
+			path = Appearance;
+			sourceTree = "<group>";
+		};
+		25161EF3253A3EDE0076A3BC /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				25161EF4253A3F4B0076A3BC /* CustomNavigationController.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		25161EFA253A443C0076A3BC /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				25161EFB253A444C0076A3BC /* AlertDisplayer.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		25622AE62538C757002EF197 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +235,7 @@
 				25972A2E2537598A00EE4372 /* MainViewController.swift */,
 				25984F6525375D9B00AC15A2 /* MainView.swift */,
 				25984F77253767D500AC15A2 /* MainViewModel.swift */,
+				25161F00253A48D20076A3BC /* MainNetworkController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -208,6 +243,9 @@
 		25984F6A2537643200AC15A2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				25161EFA253A443C0076A3BC /* Alert */,
+				25161EF3253A3EDE0076A3BC /* Navigation */,
+				25161EE1253A371B0076A3BC /* Appearance */,
 				25984F6B2537646100AC15A2 /* Extensions */,
 			);
 			path = Common;
@@ -221,6 +259,7 @@
 				256F6CEF2539C4C100EE0528 /* NSObject+Extension.swift */,
 				256F6CF42539C4FF00EE0528 /* Cell+Extension.swift */,
 				256F6CF92539C9AB00EE0528 /* NSAttributedString+Extension.swift */,
+				25161F05253B22100076A3BC /* URLRequest+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -228,7 +267,7 @@
 		25984F7C25376B2E00AC15A2 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				25984F7D25376B5200AC15A2 /* NetworkController.swift */,
+				25984F7D25376B5200AC15A2 /* Network.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -367,15 +406,20 @@
 				256F6CB72539B69500EE0528 /* Location.swift in Sources */,
 				25984F6625375D9B00AC15A2 /* MainView.swift in Sources */,
 				256F6CA72539B21800EE0528 /* CharacterTableViewCell.swift in Sources */,
+				25161F06253B22100076A3BC /* URLRequest+Extension.swift in Sources */,
 				25972A2B2537598A00EE4372 /* AppDelegate.swift in Sources */,
+				25161F01253A48D20076A3BC /* MainNetworkController.swift in Sources */,
+				25161EFC253A444C0076A3BC /* AlertDisplayer.swift in Sources */,
 				256F6CAF2539B2A600EE0528 /* Collection+Safe.swift in Sources */,
 				256F6CBC2539B70800EE0528 /* Response.swift in Sources */,
 				256F6CF02539C4C100EE0528 /* NSObject+Extension.swift in Sources */,
+				25161EE3253A37370076A3BC /* AppearanceConfigurator.swift in Sources */,
 				25984F6D2537647B00AC15A2 /* UIView+AutoLayout.swift in Sources */,
 				25972A2D2537598A00EE4372 /* SceneDelegate.swift in Sources */,
-				25984F7E25376B5200AC15A2 /* NetworkController.swift in Sources */,
+				25984F7E25376B5200AC15A2 /* Network.swift in Sources */,
 				256F6CFA2539C9AB00EE0528 /* NSAttributedString+Extension.swift in Sources */,
 				25984F78253767D500AC15A2 /* MainViewModel.swift in Sources */,
+				25161EF5253A3F4B0076A3BC /* CustomNavigationController.swift in Sources */,
 				25622AE82538C785002EF197 /* Character.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

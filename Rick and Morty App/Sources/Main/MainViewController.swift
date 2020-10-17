@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, AlertDisplayer {
     
     // MARK: Private attributes
     private let mainView = MainView()
@@ -31,24 +31,48 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configTableView()
         
-        mainView.tableView.dataSource = self
-        registerCells()
+        title = "The Rick and Morty App"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        mainView.activityIndicator.startAnimating()
+        mainView.tableView.isHidden = true
         
         viewModel.delegate = self
-        viewModel.getCharacters()
+        viewModel.fetchCharacters()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
+    
     // MARK: Private functions
+    private func configTableView() {
+        mainView.tableView.dataSource = self
+        mainView.tableView.delegate = self
+        mainView.tableView.prefetchDataSource = self
+        
+        registerCells()
+    }
+    
     private func registerCells() {
         mainView.tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: CharacterTableViewCell.identifier)
+    }
+    
+    private func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = mainView.tableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
+    
+    private func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= viewModel.characters.count
     }
 }
 
 // MARK: UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.characters?.count ?? 0
+        viewModel.totalCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,25 +81,48 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        if let character = viewModel.characters?[safe: indexPath.row] {
-            cell.set(character: character)
+        if isLoadingCell(for: indexPath) {
+            cell.set(character: .none)
+        } else {
+            cell.set(character: viewModel.characters[safe: indexPath.row])
         }
         
         return cell
     }
 }
 
+// MARK: UITableViewDelegate
+extension MainViewController: UITableViewDelegate {
+    
+}
+
+// MARK: UITableViewDataSourcePrefetching
+extension MainViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            viewModel.fetchCharacters()
+        }
+    }
+}
+
 // MARK: MainViewModelProtocol
 extension MainViewController: MainViewModelProtocol {
-    func didGetCharacters() {
-        mainView.tableView.reloadData()
+    func didCompleteFetch(with newIndexPathsToReload: [IndexPath]?) {
+        guard let newIndexPathsToReload = newIndexPathsToReload else {
+            mainView.activityIndicator.stopAnimating()
+            mainView.tableView.isHidden = false
+            
+            mainView.tableView.reloadData()
+            return
+        }
+        
+        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
+        mainView.tableView.reloadRows(at: indexPathsToReload, with: .automatic)
     }
     
     func willShowAlert(title: String?, message: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         
-        alert.addAction(okAction)
-        present(alert, animated: true)
+        displayAlert(with: title, message: message, actions: [okAction])
     }
 }
