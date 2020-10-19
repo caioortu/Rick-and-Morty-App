@@ -9,7 +9,7 @@ import Foundation
 
 protocol NetworkHandler {
     var baseURL: String { get }
-    var configuration: URLSessionConfiguration { get }
+    var session: URLSession { get }
     func get(_ path: String,
              parameters: [String: String]?,
              completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void)
@@ -17,19 +17,19 @@ protocol NetworkHandler {
 
 struct SuccessResponse {
     let data: Data
-    let urlResponse: URLResponse
+    let urlResponse: URLResponse?
 }
 
 struct FailureResponse: Error {
     let error: NSError
-    let urlResponse: URLResponse
+    let urlResponse: URLResponse?
 }
 
 struct Network: NetworkHandler {
     
     // MARK: Private Set Attributes
     private(set) var baseURL: String = ""
-    private(set) var configuration: URLSessionConfiguration = .default
+    private(set) var session = URLSession.shared
     
     // MARK: Public Attributes
     var headerFields: [String: String]?
@@ -60,16 +60,12 @@ struct Network: NetworkHandler {
         
         request = request.encode(with: parameters)
         
-        let session = URLSession(configuration: configuration)
-        
         session.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
-                if let response = response {
-                    if let data = data, error == nil {
-                        completion(.success(SuccessResponse(data: data, urlResponse: response)))
-                    } else if let error = error {
-                        completion(.failure(FailureResponse(error: error as NSError, urlResponse: response)))
-                    }
+                if let data = data {
+                    completion(.success(SuccessResponse(data: data, urlResponse: response)))
+                } else if let error = error {
+                    completion(.failure(FailureResponse(error: error as NSError, urlResponse: response)))
                 }
             }
         }.resume()
