@@ -43,5 +43,16 @@ class MainView: UIView {
         addSubview(activityIndicator)
         activityIndicator.anchorCenterSuperview()
     }
+}
+
+extension MainView {
+    func registerCells() {
+        tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: CharacterTableViewCell.identifier)
+    }
     
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
 }

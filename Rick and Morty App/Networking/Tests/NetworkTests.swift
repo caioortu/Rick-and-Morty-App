@@ -35,10 +35,11 @@ class NetworkTests: XCTestCase {
             return (response, data)
         }
         
-        // When/Then
+        // When
         network.get(urlPath) { result in
             switch result {
             case .success(let response):
+                // Then
                 XCTAssertEqual(response.data, data)
             case .failure(let response):
                 XCTFail("Error was not expected: \(response.error)")
@@ -56,12 +57,13 @@ class NetworkTests: XCTestCase {
             throw FailureResponse.mockError
         }
         
-        // When/Then
+        // When
         network.get(urlPath) { result in
             switch result {
             case .success(_):
                 XCTFail("Success response was not expected.")
             case .failure(let response):
+                // Then
                 XCTAssertEqual(response.error.domain, FailureResponse.mockError.domain)
                 XCTAssertEqual(response.error.code, FailureResponse.mockError.code)
                 XCTAssertEqual(response.error.localizedDescription, FailureResponse.mockError.localizedDescription)

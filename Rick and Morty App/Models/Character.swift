@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Character: Codable {
+struct Character: Codable, Equatable {
     
     // MARK: Schema
     let id: Int
@@ -22,11 +22,37 @@ struct Character: Codable {
     let episode: [String]
     let url: String
     let created: String
+    
+    init(id: Int = 0,
+         name: String = "",
+         status: String = "",
+         species: String = "",
+         type: String = "",
+         gender: Gender = .unknown,
+         origin: Location = Location(name: "", url: ""),
+         location: Location = Location(name: "", url: ""),
+         image: String = "",
+         episode: [String] = [],
+         url: String = "",
+         created: String = "") {
+        self.id = id
+        self.name = name
+        self.status = status
+        self.species = species
+        self.type = type
+        self.gender = gender
+        self.origin = origin
+        self.location = location
+        self.image = image
+        self.episode = episode
+        self.url = url
+        self.created = created
+    }
 }
 
 // MARK: Loacation
 extension Character {
-    struct Location: Codable {
+    struct Location: Codable, Equatable {
         
         // MARK: Schema
         let name: String

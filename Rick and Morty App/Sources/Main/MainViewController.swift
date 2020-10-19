@@ -33,11 +33,8 @@ class MainViewController: UIViewController, AlertDisplayer {
         super.viewDidLoad()
         configTableView()
         
-        title = "The Rick and Morty App"
+        title = viewModel.title
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        mainView.activityIndicator.startAnimating()
-        mainView.tableView.isHidden = true
         
         viewModel.delegate = self
         viewModel.fetchCharacters()
@@ -51,21 +48,7 @@ class MainViewController: UIViewController, AlertDisplayer {
         mainView.tableView.delegate = self
         mainView.tableView.prefetchDataSource = self
         
-        registerCells()
-    }
-    
-    private func registerCells() {
-        mainView.tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: CharacterTableViewCell.identifier)
-    }
-    
-    private func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
-        let indexPathsForVisibleRows = mainView.tableView.indexPathsForVisibleRows ?? []
-        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
-        return Array(indexPathsIntersection)
-    }
-    
-    private func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        return indexPath.row >= viewModel.characters.count
+        mainView.registerCells()
     }
 }
 
@@ -80,12 +63,8 @@ extension MainViewController: UITableViewDataSource {
                                                        for: indexPath) as? CharacterTableViewCell else {
             return UITableViewCell()
         }
-        
-        if isLoadingCell(for: indexPath) {
-            cell.set(character: .none)
-        } else {
-            cell.set(character: viewModel.characters[safe: indexPath.row])
-        }
+
+        cell.set(character: viewModel.characters[safe: indexPath.row])
         
         return cell
     }
@@ -99,7 +78,7 @@ extension MainViewController: UITableViewDelegate {
 // MARK: UITableViewDataSourcePrefetching
 extension MainViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: isLoadingCell) {
+        if indexPaths.contains(where: viewModel.isLoadingCell) {
             viewModel.fetchCharacters()
         }
     }
@@ -109,14 +88,11 @@ extension MainViewController: UITableViewDataSourcePrefetching {
 extension MainViewController: MainViewModelProtocol {
     func didCompleteFetch(with newIndexPathsToReload: [IndexPath]?) {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
-            mainView.activityIndicator.stopAnimating()
-            mainView.tableView.isHidden = false
-            
             mainView.tableView.reloadData()
             return
         }
         
-        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
+        let indexPathsToReload = mainView.visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
         mainView.tableView.reloadRows(at: indexPathsToReload, with: .automatic)
     }
     
@@ -124,5 +100,10 @@ extension MainViewController: MainViewModelProtocol {
         let okAction = UIAlertAction(title: "OK", style: .default)
         
         displayAlert(with: title, message: message, actions: [okAction])
+    }
+    
+    func viewShouldLoadFetch(_ loading: Bool) {
+        loading ? mainView.activityIndicator.startAnimating() : mainView.activityIndicator.stopAnimating()
+        mainView.tableView.isHidden = loading
     }
 }

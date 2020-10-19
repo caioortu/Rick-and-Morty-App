@@ -12,9 +12,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard !isUnitTesting() else { return }
         
         AppearanceConfigurator.configure()
+        
+        guard !isUnitTesting() else { return }
         
         let network = Network(baseURL: "https://rickandmortyapi.com/api")
         let networkController = MainNetworkController(network: network)

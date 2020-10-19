@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Response<T: Codable>: Codable {
+struct Response<T: Codable & Equatable>: Codable, Equatable {
     
     // MARK: Info
-    struct Info: Codable {
+    struct Info: Codable, Equatable {
         let count: Int
         let pages: Int
         let next: String?

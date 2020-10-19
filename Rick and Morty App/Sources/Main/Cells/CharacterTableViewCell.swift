@@ -57,11 +57,11 @@ class CharacterTableViewCell: UITableViewCell {
     }
     
     // MARK: Private functions
-    private func loadImage(url: String) {
+    private func loadImage(url: String?) {
         let characterId = character?.id
         
         imageActivityIndicator.startAnimating()
-        network?.get(url, parameters: nil) { [weak self] result in
+        network?.get(url ?? "", parameters: nil) { [weak self] result in
             self?.imageActivityIndicator.stopAnimating()
             
             switch result {
