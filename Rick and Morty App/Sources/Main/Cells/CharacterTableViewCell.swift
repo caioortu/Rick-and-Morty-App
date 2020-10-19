@@ -34,6 +34,7 @@ class CharacterTableViewCell: UITableViewCell {
     
     // MARK: Life cycle
     override func prepareForReuse() {
+        super.prepareForReuse()
         characterImageView.image = nil
         nameLabel.text = nil
         locationLabel.text = nil
@@ -69,17 +70,21 @@ class CharacterTableViewCell: UITableViewCell {
                 if characterId == self?.character?.id {
                     self?.characterImageView.image = UIImage(data: response.data)
                 }
-            case .failure(_):
+            case .failure:
                 break
             }
         }
     }
     
     private func configAttributedString(firstString: String, lastString: String) -> NSAttributedString {
-        NSAttributedString.highlightOccurrence(of: firstString,
-                                               in: firstString + lastString,
-                                               highlightAttributes: [.foregroundColor: UIColor.gray,
-                                                                     .font: UIFont.systemFont(ofSize: 14, weight: .regular)])
+        NSAttributedString.highlightOccurrence(
+            of: firstString,
+            in: firstString + lastString,
+            highlightAttributes: [
+                .foregroundColor: UIColor.gray,
+                .font: UIFont.systemFont(ofSize: 14, weight: .regular)
+            ]
+        )
     }
 }
     

@@ -10,9 +10,12 @@ import Foundation
 protocol NetworkHandler {
     var baseURL: String { get }
     var session: URLSession { get }
-    func get(_ path: String,
-             parameters: [String: String]?,
-             completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void)
+    
+    func get(
+        _ path: String,
+        parameters: [String: String]?,
+        completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void
+    )
 }
 
 struct SuccessResponse {
@@ -42,9 +45,11 @@ struct Network: NetworkHandler {
     ///   - path: The path for the GET request.
     ///   - parameters: The parameters to be used in the request.
     ///   - completion: The result of the operation, either a `SuccessResponse` or `FailureResponse`.
-    func get(_ path: String,
-             parameters: [String: String]? = nil,
-             completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void) {
+    func get(
+        _ path: String,
+        parameters: [String: String]? = nil,
+        completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void
+    ) {
         let urlString = baseURL + path
         guard let url = URL(string: urlString) else {
             fatalError("Unable to get the correct URL")

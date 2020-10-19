@@ -8,14 +8,17 @@
 import XCTest
 @testable import Rick_and_Morty_App
 
+// swiftlint:disable implicitly_unwrapped_optional
+// swiftlint:disable force_unwrapping
 class NetworkTests: XCTestCase {
     var network: Network!
     var expectation: XCTestExpectation!
     
     override func setUp() {
+        super.setUp()
         let configuration = URLSessionConfiguration.default
         configuration.protocolClasses = [MockURLProtocol.self]
-        let urlSession = URLSession.init(configuration: configuration)
+        let urlSession = URLSession(configuration: configuration)
         
         network = Network(baseURL: "www.example.com", session: urlSession)
         expectation = expectation(description: "Expectation")
@@ -60,7 +63,7 @@ class NetworkTests: XCTestCase {
         // When
         network.get(urlPath) { result in
             switch result {
-            case .success(_):
+            case .success:
                 XCTFail("Success response was not expected.")
             case .failure(let response):
                 // Then
@@ -78,7 +81,7 @@ extension FailureResponse {
     static var mockError: NSError {
         NSError(domain: "www.network.mock.com",
                 code: -1,
-                userInfo: ["Description" : "Mock response error"])
+                userInfo: ["Description": "Mock response error"])
     }
 }
 

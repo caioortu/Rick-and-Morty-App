@@ -8,12 +8,15 @@
 import XCTest
 @testable import Rick_and_Morty_App
 
+// swiftlint:disable implicitly_unwrapped_optional
+// swiftlint:disable force_unwrapping
 class MainNetworkControllerTests: XCTestCase {
     
     var mainNetworkController: MainNetworkControllerType!
     var expectation: XCTestExpectation!
     
     override func setUp() {
+        super.setUp()
         expectation = expectation(description: "Expectation")
     }
 
@@ -50,7 +53,7 @@ class MainNetworkControllerTests: XCTestCase {
         // When
         mainNetworkController.getCharacters(page: 1) { result in
             switch result {
-            case .success(_):
+            case .success:
                 XCTFail("Success response was not expected.")
             case .failure(let error):
                 // Then
@@ -71,7 +74,7 @@ class CharactersReponseNetworkStub: NetworkHandler {
     
     static var error = NSError(domain: "CharactersReponseNetworkStub domain",
                                code: -2,
-                               userInfo: ["Description" : "CharactersReponseNetworkStub error description"])
+                               userInfo: ["Description": "CharactersReponseNetworkStub error description"])
     
     var baseURL: String = ""
     
@@ -83,9 +86,11 @@ class CharactersReponseNetworkStub: NetworkHandler {
         self.stubType = stubType
     }
     
-    func get(_ path: String,
-             parameters: [String : String]?,
-             completion: @escaping (Result<SuccessResponse, FailureResponse>) -> Void) {
+    func get(
+        _ path: String,
+        parameters: [String: String]?,
+        completion: @escaping (Result<SuccessResponse, FailureResponse>) -> Void
+    ) {
         switch stubType {
         case .success:
             let testBundle = Bundle(for: type(of: self))

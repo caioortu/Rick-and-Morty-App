@@ -60,9 +60,11 @@ class ImageNetworkStub: NetworkHandler {
     
     var session: URLSession = .shared
     
-    func get(_ path: String,
-             parameters: [String : String]?,
-             completion: @escaping (Result<SuccessResponse, FailureResponse>) -> Void) {
+    func get(
+        _ path: String,
+        parameters: [String: String]?,
+        completion: @escaping (Result<SuccessResponse, FailureResponse>) -> Void
+    ) {
         let image = UIImage(named: "Rick", in: Bundle(for: type(of: self)), compatibleWith: nil)
         if let imageData = image?.pngData() {
             completion(.success(SuccessResponse(data: imageData, urlResponse: nil)))

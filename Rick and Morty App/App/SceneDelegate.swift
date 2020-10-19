@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
     }
 
-    //MARK: - Private
+    // MARK: - Private
     private func isUnitTesting() -> Bool {
         // Short-circuit starting app if running unit tests
         let isUnitTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
@@ -37,4 +37,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return isUnitTesting
     }
 }
-

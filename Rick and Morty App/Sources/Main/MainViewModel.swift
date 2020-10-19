@@ -7,19 +7,20 @@
 
 import Foundation
 
-//MARK: MainViewModelProtocol
-protocol MainViewModelProtocol: class {
+// MARK: MainViewModelProtocol
+protocol MainViewModelProtocol: AnyObject {
     func didCompleteFetch(with newIndexPathsToReload: [IndexPath]?)
     func willShowAlert(title: String?, message: String?)
     func viewShouldLoadFetch(_ loading: Bool)
 }
 
-//MARK: MainViewModelType
+// MARK: MainViewModelType
 protocol MainViewModelType {
     var delegate: MainViewModelProtocol? { get set }
     var characters: [Character] { get }
     var title: String { get }
     var totalCount: Int { get }
+    
     func fetchCharacters()
     func isLoadingCell(for indexPath: IndexPath) -> Bool
 }
@@ -50,7 +51,7 @@ class MainViewModel: MainViewModelType {
     
     // MARK: Public functions
     func fetchCharacters() {
-        guard !isFetchInProgress, !hasReachedLastPage else { return}
+        guard !isFetchInProgress, !hasReachedLastPage else { return }
         
         isFetchInProgress = true
         if characters.isEmpty {

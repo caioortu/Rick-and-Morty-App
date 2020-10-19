@@ -17,11 +17,13 @@ extension NSAttributedString {
     ///   - defaultAttributes: the default attributes of the not highlighted part of the string
     ///   - ignoringUppercase: it'll search ignoring the case differentiation
     /// - Returns: an NSAttributedString with the highlights
-    class func highlightOccurrence(of text: String,
-                                   in completeString: String,
-                                   highlightAttributes: [NSAttributedString.Key : Any],
-                                   defaultAttributes: [NSAttributedString.Key : Any]? = nil,
-                                   ignoringUppercase: Bool = true) -> NSAttributedString {
+    class func highlightOccurrence(
+        of text: String,
+        in completeString: String,
+        highlightAttributes: [NSAttributedString.Key: Any],
+        defaultAttributes: [NSAttributedString.Key: Any]? = nil,
+        ignoringUppercase: Bool = true
+    ) -> NSAttributedString {
         
         let attributedString = NSMutableAttributedString(string: completeString, attributes: defaultAttributes)
         
@@ -44,7 +46,7 @@ extension NSMutableAttributedString {
     /// - Parameters:
     ///   - attrs: the attributes that should be set in the ranges
     ///   - ranges: the ranges where the attributes will be set
-    func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, ranges: [NSRange]) {
+    func setAttributes(_ attrs: [NSAttributedString.Key: Any]?, ranges: [NSRange]) {
         ranges.forEach { range in
             setAttributes(attrs, range: range)
         }

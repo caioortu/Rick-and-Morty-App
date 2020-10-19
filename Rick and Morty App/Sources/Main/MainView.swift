@@ -9,7 +9,7 @@ import UIKit
 
 class MainView: UIView {
     
-    //MARK: Public Attributes
+    // MARK: Public Attributes
     let tableView = UITableView()
     let activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -24,7 +24,7 @@ class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: Private functions
+    // MARK: Private functions
     private func setUpLayout() {
         backgroundColor = .white
         setupTableView()

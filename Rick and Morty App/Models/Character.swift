@@ -23,18 +23,20 @@ struct Character: Codable, Equatable {
     let url: String
     let created: String
     
-    init(id: Int = 0,
-         name: String = "",
-         status: String = "",
-         species: String = "",
-         type: String = "",
-         gender: Gender = .unknown,
-         origin: Location = Location(name: "", url: ""),
-         location: Location = Location(name: "", url: ""),
-         image: String = "",
-         episode: [String] = [],
-         url: String = "",
-         created: String = "") {
+    init(
+        id: Int = 0,
+        name: String = "",
+        status: String = "",
+        species: String = "",
+        type: String = "",
+        gender: Gender = .unknown,
+        origin: Location = Location(name: "", url: ""),
+        location: Location = Location(name: "", url: ""),
+        image: String = "",
+        episode: [String] = [],
+        url: String = "",
+        created: String = ""
+    ) {
         self.id = id
         self.name = name
         self.status = status

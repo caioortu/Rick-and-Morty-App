@@ -9,14 +9,15 @@ import XCTest
 import UIKit
 @testable import Rick_and_Morty_App
 
+// swiftlint:disable force_cast
 class NSAttributedStringTests: XCTestCase {
     
     func testHighlightOccurrenceOfText() {
         // Given
         let sut = "highlight default highlight"
         let highlightedText = "highlight"
-        let highlightAttributes: [NSAttributedString.Key : UIColor] = [.foregroundColor: .blue]
-        let defaultAttributes: [NSAttributedString.Key : UIColor] = [.foregroundColor: .black]
+        let highlightAttributes: [NSAttributedString.Key: UIColor] = [.foregroundColor: .blue]
+        let defaultAttributes: [NSAttributedString.Key: UIColor] = [.foregroundColor: .black]
         
         var firstRange = NSRange(location: 0, length: 9)
         var defaultRange = NSRange(location: 9, length: 9)
@@ -46,8 +47,11 @@ class NSAttributedStringTests: XCTestCase {
     func testSetAttributesInRanges() {
         // Given
         let sut = NSMutableAttributedString(string: "Test of ranges")
-        let attributes: [NSAttributedString.Key : UIColor] = [.foregroundColor: .blue,
-                                                              .backgroundColor: .red]
+        let attributes: [NSAttributedString.Key: UIColor] = [
+            .foregroundColor: .blue,
+            .backgroundColor: .red
+        ]
+        
         var firstRange = NSRange(location: 0, length: 4)
         var lastRange = NSRange(location: 8, length: 6)
         var anotherRange = NSRange(location: 4, length: 4)
@@ -71,8 +75,10 @@ class NSAttributedStringTests: XCTestCase {
         // Given
         let sut = "test of test"
         let searchString = "test"
-        let expectedRanges: [NSRange] = [NSRange(location: 0, length: 4),
-                                         NSRange(location: 8, length: 4)]
+        let expectedRanges: [NSRange] = [
+            NSRange(location: 0, length: 4),
+            NSRange(location: 8, length: 4)
+        ]
         
         // When
         let ranges = sut.ranges(of: searchString)

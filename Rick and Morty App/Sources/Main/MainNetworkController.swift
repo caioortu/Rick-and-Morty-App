@@ -9,6 +9,7 @@ import Foundation
 
 protocol MainNetworkControllerType {
     var network: NetworkHandler { get }
+    
     func getCharacters(page: Int, completion: @escaping (Result<Response<Character>, NSError>) -> Void)
 }
 

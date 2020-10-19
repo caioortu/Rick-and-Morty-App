@@ -8,6 +8,7 @@
 import XCTest
 @testable import Rick_and_Morty_App
 
+// swiftlint:disable force_unwrapping
 class URLRequestTests: XCTestCase {
 
     func testEncode() {
