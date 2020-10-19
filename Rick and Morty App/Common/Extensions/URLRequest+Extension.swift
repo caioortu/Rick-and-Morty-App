@@ -18,13 +18,16 @@ extension URLRequest {
         if let url = self.url,
            let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
            !parameters.isEmpty {
+            
             var newUrlComponents = urlComponents
             let queryItems = parameters.map { key, value in
                 URLQueryItem(name: key, value: value)
             }
-            newUrlComponents.queryItems = queryItems
+            newUrlComponents.queryItems = queryItems.sorted { $0.name > $1.name }
+            
             encodedURLRequest.url = newUrlComponents.url
             return encodedURLRequest
+            
         } else {
             return self
         }

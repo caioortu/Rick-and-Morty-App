@@ -27,9 +27,9 @@ extension NSAttributedString {
         
         let textRangesInCompleteString: [NSRange]
         if ignoringUppercase {
-            textRangesInCompleteString = (completeString.uppercased() as NSString).ranges(of: text.uppercased())
+            textRangesInCompleteString = completeString.uppercased().ranges(of: text.uppercased())
         } else {
-            textRangesInCompleteString = (completeString as NSString).ranges(of: text)
+            textRangesInCompleteString = completeString.ranges(of: text)
         }
         
         attributedString.setAttributes(highlightAttributes, ranges: textRangesInCompleteString)
@@ -44,26 +44,28 @@ extension NSMutableAttributedString {
     /// - Parameters:
     ///   - attrs: the attributes that should be set in the ranges
     ///   - ranges: the ranges where the attributes will be set
-    open func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, ranges: [NSRange]) {
-        ranges.forEach { (range) in
+    func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, ranges: [NSRange]) {
+        ranges.forEach { range in
             setAttributes(attrs, range: range)
         }
     }
 }
 
-extension NSString {
+extension String {
     /// Ranges where an occourence of a string happen
     ///
     /// - Parameter searchString: the string that should be found
     /// - Returns: an array of the ranges where the search string is found
-    open func ranges(of searchString: String) -> [NSRange] {
+    func ranges(of searchString: String) -> [NSRange] {
+        let string = self as NSString
+        
         var ranges = [NSRange]()
         var searchRange = NSRange()
-        var range: NSRange = self.range(of: searchString)
+        var range: NSRange = string.range(of: searchString)
         while range.location != NSNotFound {
             ranges.append(range)
-            searchRange = NSRange(location: NSMaxRange(range), length: self.length - NSMaxRange(range))
-            range = self.range(of: searchString, options: [], range: searchRange)
+            searchRange = NSRange(location: NSMaxRange(range), length: string.length - NSMaxRange(range))
+            range = string.range(of: searchString, options: [], range: searchRange)
         }
         return ranges
     }
