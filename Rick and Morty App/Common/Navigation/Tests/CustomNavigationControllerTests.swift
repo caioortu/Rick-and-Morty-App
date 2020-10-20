@@ -11,6 +11,7 @@ import SnapshotTesting
 
 class CustomNavigationControllerTests: XCTestCase {
 
+    // MARK: Tests
     func testCustomNavigationController() {
         // Given
         let controller = Controller()
@@ -23,6 +24,7 @@ class CustomNavigationControllerTests: XCTestCase {
     }
 }
 
+// MARK: Controller
 private extension CustomNavigationControllerTests {
     class Controller: UIViewController {
         

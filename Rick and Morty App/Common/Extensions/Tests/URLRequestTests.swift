@@ -11,6 +11,7 @@ import XCTest
 // swiftlint:disable force_unwrapping
 class URLRequestTests: XCTestCase {
 
+    // MARK: Tests
     func testEncode() {
         // Given
         let request = URLRequest(url: URL(string: "www.example.com")!)

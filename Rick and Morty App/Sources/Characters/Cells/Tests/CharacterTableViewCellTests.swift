@@ -15,6 +15,7 @@ class CharacterTableViewCellTests: XCTestCase {
     let characterCell = CharacterTableViewCell(style: .default, reuseIdentifier: "test")
     let loadingCharacterCell = CharacterTableViewCell(style: .default, reuseIdentifier: "testLoading")
 
+    // MARK: Tests
     func testCharacterCell() {
         // Given
         let controller = Controller(cells: [characterCell, loadingCharacterCell])
@@ -31,6 +32,7 @@ class CharacterTableViewCellTests: XCTestCase {
     }
 }
 
+// MARK: Controller
 private extension CharacterTableViewCellTests {
     class Controller: UITableViewController {
         
@@ -56,6 +58,7 @@ private extension CharacterTableViewCellTests {
     }
 }
 
+// MARK: ImageDownloaderStub
 class ImageDownloaderStub: ImageDownloaderType {
     var network: NetworkHandler = ImageNetworkStub(stubType: .success)
     

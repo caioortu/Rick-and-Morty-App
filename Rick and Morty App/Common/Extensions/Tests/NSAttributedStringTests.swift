@@ -12,6 +12,7 @@ import UIKit
 // swiftlint:disable force_cast
 class NSAttributedStringTests: XCTestCase {
     
+    // MARK: Tests
     func testHighlightOccurrenceOfText() {
         // Given
         let sut = "highlight default highlight"

@@ -33,10 +33,12 @@ class DetailsViewModel: DetailsViewModelType {
     // MARK: Private attributes
     private let networkController: DetailsNetworkControllerType
     private let id: Int
+    private let favorites: FavoriteCharacters
     
     // MARK: Init
-    init(id: Int, networkController: DetailsNetworkControllerType) {
+    init(id: Int, networkController: DetailsNetworkControllerType, favorites: FavoriteCharacters) {
         self.networkController = networkController
+        self.favorites = favorites
         self.id = id
     }
     
@@ -58,8 +60,6 @@ class DetailsViewModel: DetailsViewModelType {
     }
     
     func markAsFavorite() {
-        let favorites = FavoriteCharacters.shared
-        
         if !isIdMarkedAsFavorite() {
             favorites.addCharacterId(id)
             delegate?.didMarkAsFavorite(true)

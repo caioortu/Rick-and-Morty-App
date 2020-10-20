@@ -11,6 +11,7 @@ import SnapshotTesting
 
 class DetailsViewTests: XCTestCase {
 
+    // MARK: Tests
     func testDetailsView() {
         // Given
         let detailsView = DetailsView(frame: CGRect(x: 0, y: 0, width: 200, height: 300))
@@ -32,6 +33,7 @@ class DetailsViewTests: XCTestCase {
     }
 }
 
+// MARK: Controller
 private extension DetailsViewTests {
     class Controller: UIViewController {
         

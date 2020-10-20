@@ -11,8 +11,9 @@ import XCTest
 // swiftlint:disable implicitly_unwrapped_optional
 // swiftlint:disable force_unwrapping
 class NetworkTests: XCTestCase {
-    var network: Network!
-    var expectation: XCTestExpectation!
+    
+    private var network: Network!
+    private var expectation: XCTestExpectation!
     
     override func setUp() {
         super.setUp()
@@ -24,6 +25,7 @@ class NetworkTests: XCTestCase {
         expectation = expectation(description: "Expectation")
     }
     
+    // MARK: Tests
     func testGetSuccessfulResponse() {
         // Given
         let urlPath = "/success"
@@ -77,6 +79,7 @@ class NetworkTests: XCTestCase {
     }
 }
 
+// MARK: FailureResponse
 extension FailureResponse {
     static var mockError: NSError {
         NSError(domain: "www.network.mock.com",
@@ -85,6 +88,7 @@ extension FailureResponse {
     }
 }
 
+// MARK: MockURLProtocol
 class MockURLProtocol: URLProtocol {
     static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
     

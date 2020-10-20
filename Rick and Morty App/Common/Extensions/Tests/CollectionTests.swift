@@ -10,6 +10,7 @@ import XCTest
 
 class CollectionTests: XCTestCase {
 
+    // MARK: Tests
     func testSafeSubscribe() {
         // Given
         let sut = [1, 2, 3]

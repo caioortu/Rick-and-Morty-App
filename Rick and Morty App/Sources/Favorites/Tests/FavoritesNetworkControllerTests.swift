@@ -12,14 +12,15 @@ import XCTest
 // swiftlint:disable force_unwrapping
 class FavoritesNetworkControllerTests: XCTestCase {
     
-    var favoritesNetworkController: FavoritesNetworkControllerType!
-    var expectation: XCTestExpectation!
+    private var favoritesNetworkController: FavoritesNetworkControllerType!
+    private var expectation: XCTestExpectation!
     
     override func setUp() {
         super.setUp()
         expectation = expectation(description: "Expectation")
     }
 
+    // MARK: Tests
     func testGetCharactersSuccessfully() {
         // Given
         let network = CharactersNetworkStub(stubType: .success)
@@ -63,6 +64,7 @@ class FavoritesNetworkControllerTests: XCTestCase {
     }
 }
 
+// MARK: CharactersNetworkStub
 class CharactersNetworkStub: NetworkHandler {
     
     enum StubType {

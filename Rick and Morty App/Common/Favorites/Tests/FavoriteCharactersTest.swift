@@ -23,6 +23,7 @@ class FavoriteCharactersTest: XCTestCase {
         favorite = FavoriteCharacters(defaults: userDefaults)
     }
 
+    // MARK: Tests
     func testFavoriteCharacters() {
         // Given
         let ids = [1, 2, 3, 5]

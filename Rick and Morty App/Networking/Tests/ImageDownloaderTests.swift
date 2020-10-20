@@ -12,14 +12,15 @@ import SnapshotTesting
 // swiftlint:disable implicitly_unwrapped_optional
 class ImageDownloaderTests: XCTestCase {
     
-    var imageDownloader: ImageDownloaderType!
-    var expectation: XCTestExpectation!
+    private var imageDownloader: ImageDownloaderType!
+    private var expectation: XCTestExpectation!
 
     override func setUp() {
         super.setUp()
         expectation = expectation(description: "Expectation")
     }
     
+    // MARK: Tests
     func testGetCharactersSuccessfully() {
         // Given
         let network = ImageNetworkStub(stubType: .success)
@@ -59,6 +60,7 @@ class ImageDownloaderTests: XCTestCase {
     }
 }
 
+// MARK: ImageNetworkStub
 class ImageNetworkStub: NetworkHandler {
     enum StubType {
         case success
