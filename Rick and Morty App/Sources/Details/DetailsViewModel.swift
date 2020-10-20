@@ -22,6 +22,7 @@ protocol DetailsViewModelType {
     
     func fetchCharacter()
     func markAsFavorite()
+    func popView()
 }
 
 class DetailsViewModel: DetailsViewModelType {
@@ -52,7 +53,6 @@ class DetailsViewModel: DetailsViewModelType {
                 self?.checkIdForFavorite()
             case .failure(let error):
                 self?.delegate?.willShowAlert(title: "Oops!!", message: error.localizedDescription)
-                self?.delegate?.popView()
             }
         }
     }
@@ -67,6 +67,10 @@ class DetailsViewModel: DetailsViewModelType {
             favorites.removeCharacterId(id)
             delegate?.didMarkAsFavorite(false)
         }
+    }
+    
+    func popView() {
+        delegate?.popView()
     }
     
     // MARK: Private functions

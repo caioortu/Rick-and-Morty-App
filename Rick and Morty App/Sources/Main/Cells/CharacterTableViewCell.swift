@@ -92,6 +92,8 @@ class CharacterTableViewCell: UITableViewCell {
 private extension CharacterTableViewCell {
     
     func setupLayout() {
+        selectionStyle = .none
+        
         setupImageStack()
         setupStack()
         

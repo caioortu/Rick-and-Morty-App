@@ -1,21 +1,21 @@
 //
-//  MainViewController.swift
+//  FavoritesViewController.swift
 //  Rick and Morty App
 //
-//  Created by Caio Ortu on 10/14/20.
+//  Created by Caio Ortu on 10/20/20.
 //
 
 import UIKit
 
-class MainViewController: UIViewController, AlertDisplayer {
+class FavoritesViewController: UIViewController, AlertDisplayer {
     
     // MARK: Private attributes
     private let charactersView = CharactersView()
-    private var viewModel: MainViewModelType
+    private var viewModel: FavoritesViewModelType
     private let imageDowloader: ImageDownloaderType
     
     // MARK: Init
-    init(viewModel: MainViewModelType, imageDowloader: ImageDownloaderType) {
+    init(viewModel: FavoritesViewModelType, imageDowloader: ImageDownloaderType) {
         self.viewModel = viewModel
         self.imageDowloader = imageDowloader
         super.init(nibName: nil, bundle: nil)
@@ -36,10 +36,13 @@ class MainViewController: UIViewController, AlertDisplayer {
         configTableView()
         
         title = viewModel.title
-        addFavoritesButton()
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .never
         
         viewModel.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         viewModel.fetchCharacters()
     }
     
@@ -49,31 +52,15 @@ class MainViewController: UIViewController, AlertDisplayer {
     private func configTableView() {
         charactersView.tableView.dataSource = self
         charactersView.tableView.delegate = self
-        charactersView.tableView.prefetchDataSource = self
         
         charactersView.registerCells()
-    }
-    
-    // MARK: Private functions
-    private func addFavoritesButton() {
-        let favotiteButton = UIBarButtonItem(image: UIImage(systemName: "heart"),
-                                             style: .done,
-                                             target: self,
-                                             action: #selector(goToFavorite))
-        
-        navigationItem.rightBarButtonItem = favotiteButton
-    }
-    
-    @objc private func goToFavorite() {
-        let detailsViewController = FavoritesBuilder.build(network: viewModel.networkController.network)
-        navigationController?.pushViewController(detailsViewController, animated: true)
     }
 }
 
 // MARK: UITableViewDataSource
-extension MainViewController: UITableViewDataSource {
+extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.totalCount
+        viewModel.characters.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,7 +76,7 @@ extension MainViewController: UITableViewDataSource {
 }
 
 // MARK: UITableViewDelegate
-extension MainViewController: UITableViewDelegate {
+extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let characterId = viewModel.characters[safe: indexPath.row]?.id {
             let detailsViewController = DetailsBuilder.build(characterId: characterId,
@@ -100,29 +87,16 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
-// MARK: UITableViewDataSourcePrefetching
-extension MainViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: viewModel.isLoadingCell) {
-            viewModel.fetchCharacters()
-        }
-    }
-}
-
-// MARK: MainViewModelProtocol
-extension MainViewController: MainViewModelProtocol {
-    func didCompleteFetch(with newIndexPathsToReload: [IndexPath]?) {
-        guard let newIndexPathsToReload = newIndexPathsToReload else {
-            charactersView.tableView.reloadData()
-            return
-        }
-        
-        let indexPathsToReload = charactersView.visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
-        charactersView.tableView.reloadRows(at: indexPathsToReload, with: .automatic)
+// MARK: FavoritesViewModelProtocol
+extension FavoritesViewController: FavoritesViewModelProtocol {
+    func didCompleteFetch() {
+        charactersView.tableView.reloadData()
     }
     
     func willShowAlert(title: String?, message: String?) {
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: "OK", style: .default) { [self] _ in
+            viewModel.popView()
+        }
         
         displayAlert(with: title, message: message, actions: [okAction])
     }
@@ -130,5 +104,9 @@ extension MainViewController: MainViewModelProtocol {
     func viewShouldLoadFetch(_ loading: Bool) {
         loading ? charactersView.activityIndicator.startAnimating() : charactersView.activityIndicator.stopAnimating()
         charactersView.tableView.isHidden = loading
+    }
+    
+    func popView() {
+        navigationController?.popViewController(animated: true)
     }
 }

@@ -50,8 +50,8 @@ struct Network: NetworkHandler {
         parameters: [String: String]? = nil,
         completion: @escaping (_ result: Result<SuccessResponse, FailureResponse>) -> Void
     ) {
-        let urlString = baseURL + path
-        guard let url = URL(string: urlString) else {
+        guard let urlString = (baseURL + path).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+            let url = URL(string: urlString) else {
             fatalError("Unable to get the correct URL")
         }
         var request = URLRequest(url: url)

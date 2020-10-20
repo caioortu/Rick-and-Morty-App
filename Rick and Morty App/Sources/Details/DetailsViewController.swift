@@ -56,7 +56,9 @@ extension DetailsViewController: DetailsViewModelProtocol {
     }
     
     func willShowAlert(title: String?, message: String?) {
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: "OK", style: .default) { [self] _ in
+            viewModel.popView()
+        }
         
         displayAlert(with: title, message: message, actions: [okAction])
     }

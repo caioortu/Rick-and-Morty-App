@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  CharactersView.swift
 //  Rick and Morty App
 //
 //  Created by Caio Ortu on 10/14/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainView: UIView {
+class CharactersView: UIView {
     
     // MARK: Public Attributes
     let tableView = UITableView()
@@ -45,7 +45,7 @@ class MainView: UIView {
     }
 }
 
-extension MainView {
+extension CharactersView {
     func registerCells() {
         tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: CharacterTableViewCell.identifier)
     }

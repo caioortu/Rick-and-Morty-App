@@ -1,8 +1,8 @@
 //
-//  MainNetworkControllerTests.swift
+//  FavoritesNetworkControllerTests.swift
 //  Rick and Morty AppTests
 //
-//  Created by Caio Ortu on 10/19/20.
+//  Created by Caio Ortu on 10/20/20.
 //
 
 import XCTest
@@ -10,9 +10,9 @@ import XCTest
 
 // swiftlint:disable implicitly_unwrapped_optional
 // swiftlint:disable force_unwrapping
-class MainNetworkControllerTests: XCTestCase {
+class FavoritesNetworkControllerTests: XCTestCase {
     
-    var mainNetworkController: MainNetworkControllerType!
+    var favoritesNetworkController: FavoritesNetworkControllerType!
     var expectation: XCTestExpectation!
     
     override func setUp() {
@@ -22,21 +22,19 @@ class MainNetworkControllerTests: XCTestCase {
 
     func testGetCharactersSuccessfully() {
         // Given
-        let network = CharactersReponseNetworkStub(stubType: .success)
-        mainNetworkController = MainNetworkController(network: network)
-        let info = Response<Character>.Info(count: 671, pages: 34, next: "page=2", prev: nil)
+        let network = CharactersNetworkStub(stubType: .success)
+        favoritesNetworkController = FavoritesNetworkController(network: network)
         
         // When
-        mainNetworkController.getCharacters(page: 1) { result in
+        favoritesNetworkController.getCharacters(ids: []) { result in
             switch result {
             case .success(let response):
                 // Then
-                XCTAssertEqual(response.info, info)
-                XCTAssertEqual(response.results.first?.id, 1)
-                XCTAssertEqual(response.results.first?.name, "Rick Sanchez")
-                XCTAssertEqual(response.results.first?.status, "Alive")
-                XCTAssertEqual(response.results.first?.species, "Human")
-                XCTAssertEqual(response.results.first?.gender, .male)
+                XCTAssertEqual(response.first?.id, 1)
+                XCTAssertEqual(response.first?.name, "Rick Sanchez")
+                XCTAssertEqual(response.first?.status, "Alive")
+                XCTAssertEqual(response.first?.species, "Human")
+                XCTAssertEqual(response.first?.gender, .male)
             case .failure(let error):
                 XCTFail("Something went wrong, \(error.localizedDescription)")
             }
@@ -47,17 +45,17 @@ class MainNetworkControllerTests: XCTestCase {
 
     func testGetCharactersFailed() {
         // Given
-        let network = CharactersReponseNetworkStub(stubType: .failure)
-        mainNetworkController = MainNetworkController(network: network)
+        let network = CharactersNetworkStub(stubType: .failure)
+        favoritesNetworkController = FavoritesNetworkController(network: network)
         
         // When
-        mainNetworkController.getCharacters(page: 1) { result in
+        favoritesNetworkController.getCharacters(ids: []) { result in
             switch result {
             case .success:
                 XCTFail("Success response was not expected.")
             case .failure(let error):
                 // Then
-                XCTAssertEqual(error, CharactersReponseNetworkStub.error)
+                XCTAssertEqual(error, CharactersNetworkStub.error)
             }
             self.expectation.fulfill()
         }
@@ -65,16 +63,16 @@ class MainNetworkControllerTests: XCTestCase {
     }
 }
 
-class CharactersReponseNetworkStub: NetworkHandler {
+class CharactersNetworkStub: NetworkHandler {
     
     enum StubType {
         case success
         case failure
     }
     
-    static var error = NSError(domain: "CharactersReponseNetworkStub domain",
+    static var error = NSError(domain: "CharactersNetworkStub domain",
                                code: -2,
-                               userInfo: ["Description": "CharactersReponseNetworkStub error description"])
+                               userInfo: ["Description": "CharactersNetworkStub error description"])
     
     var baseURL: String = ""
     
@@ -94,7 +92,7 @@ class CharactersReponseNetworkStub: NetworkHandler {
         switch stubType {
         case .success:
             let testBundle = Bundle(for: type(of: self))
-            let path = testBundle.path(forResource: "CharactersResponse", ofType: "json")
+            let path = testBundle.path(forResource: "Characters", ofType: "json")
             if let data = try? Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) {
                 completion(.success(SuccessResponse(data: data, urlResponse: nil)))
             }
