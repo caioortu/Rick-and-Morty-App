@@ -1,5 +1,5 @@
 //
-//  MainViewModelTests.swift
+//  CharactersViewModelTests.swift
 //  Rick and Morty AppTests
 //
 //  Created by Caio Ortu on 10/19/20.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-class MainViewModelTests: XCTestCase {
+class CharactersViewModelTests: XCTestCase {
 
 //    var characters: [Character] { get }
 //    var title: String { get }

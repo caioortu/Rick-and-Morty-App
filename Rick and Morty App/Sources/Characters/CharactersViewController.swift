@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  CharactersViewController.swift
 //  Rick and Morty App
 //
 //  Created by Caio Ortu on 10/14/20.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-class MainViewController: UIViewController, AlertDisplayer {
+class CharactersViewController: UIViewController, AlertDisplayer {
     
     // MARK: Private attributes
     private let charactersView = CharactersView()
-    private var viewModel: MainViewModelType
+    private var viewModel: CharactersViewModelType
     private let imageDowloader: ImageDownloaderType
     
     // MARK: Init
-    init(viewModel: MainViewModelType, imageDowloader: ImageDownloaderType) {
+    init(viewModel: CharactersViewModelType, imageDowloader: ImageDownloaderType) {
         self.viewModel = viewModel
         self.imageDowloader = imageDowloader
         super.init(nibName: nil, bundle: nil)
@@ -71,7 +71,7 @@ class MainViewController: UIViewController, AlertDisplayer {
 }
 
 // MARK: UITableViewDataSource
-extension MainViewController: UITableViewDataSource {
+extension CharactersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.totalCount
     }
@@ -89,7 +89,7 @@ extension MainViewController: UITableViewDataSource {
 }
 
 // MARK: UITableViewDelegate
-extension MainViewController: UITableViewDelegate {
+extension CharactersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let characterId = viewModel.characters[safe: indexPath.row]?.id {
             let detailsViewController = DetailsBuilder.build(characterId: characterId,
@@ -101,7 +101,7 @@ extension MainViewController: UITableViewDelegate {
 }
 
 // MARK: UITableViewDataSourcePrefetching
-extension MainViewController: UITableViewDataSourcePrefetching {
+extension CharactersViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: viewModel.isLoadingCell) {
             viewModel.fetchCharacters()
@@ -109,8 +109,8 @@ extension MainViewController: UITableViewDataSourcePrefetching {
     }
 }
 
-// MARK: MainViewModelProtocol
-extension MainViewController: MainViewModelProtocol {
+// MARK: CharactersViewModelProtocol
+extension CharactersViewController: CharactersViewModelProtocol {
     func didCompleteFetch(with newIndexPathsToReload: [IndexPath]?) {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
             charactersView.tableView.reloadData()

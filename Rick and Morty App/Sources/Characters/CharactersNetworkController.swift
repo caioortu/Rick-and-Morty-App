@@ -1,5 +1,5 @@
 //
-//  MainNetworkController.swift
+//  CharactersNetworkController.swift
 //  Rick and Morty App
 //
 //  Created by Caio Ortu on 10/16/20.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol MainNetworkControllerType {
+protocol CharactersNetworkControllerType {
     var network: NetworkHandler { get }
     
     func getCharacters(page: Int, completion: @escaping (Result<Response<Character>, NSError>) -> Void)
 }
 
-struct MainNetworkController: MainNetworkControllerType {
+struct CharactersNetworkController: CharactersNetworkControllerType {
     
     let network: NetworkHandler
     

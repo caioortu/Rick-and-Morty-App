@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  CharactersViewModel.swift
 //  Rick and Morty App
 //
 //  Created by Caio Ortu on 10/14/20.
@@ -7,18 +7,18 @@
 
 import Foundation
 
-// MARK: MainViewModelProtocol
-protocol MainViewModelProtocol: AnyObject {
+// MARK: CharactersViewModelProtocol
+protocol CharactersViewModelProtocol: AnyObject {
     func didCompleteFetch(with newIndexPathsToReload: [IndexPath]?)
     func willShowAlert(title: String?, message: String?)
     func viewShouldLoadFetch(_ loading: Bool)
 }
 
-// MARK: MainViewModelType
-protocol MainViewModelType {
-    var delegate: MainViewModelProtocol? { get set }
+// MARK: CharactersViewModelType
+protocol CharactersViewModelType {
+    var delegate: CharactersViewModelProtocol? { get set }
     var characters: [Character] { get }
-    var networkController: MainNetworkControllerType { get }
+    var networkController: CharactersNetworkControllerType { get }
     var title: String { get }
     var totalCount: Int { get }
     
@@ -26,22 +26,22 @@ protocol MainViewModelType {
     func isLoadingCell(for indexPath: IndexPath) -> Bool
 }
 
-class MainViewModel: MainViewModelType {
+class CharactersViewModel: CharactersViewModelType {
     
     // MARK: Public attributes
-    weak var delegate: MainViewModelProtocol?
+    weak var delegate: CharactersViewModelProtocol?
     let title = "The Rick and Morty App"
     
     // MARK: Private attributes
     private(set) var characters: [Character] = []
-    private(set) var networkController: MainNetworkControllerType
+    private(set) var networkController: CharactersNetworkControllerType
     private var currentPage = 1
     private var total = 0
     private var isFetchInProgress = false
     private var hasReachedLastPage = false
     
     // MARK: Init
-    init(networkController: MainNetworkControllerType) {
+    init(networkController: CharactersNetworkControllerType) {
         self.networkController = networkController
     }
     

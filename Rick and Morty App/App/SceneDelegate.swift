@@ -18,11 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard !isUnitTesting() else { return }
         
         let network = Network(baseURL: "https://rickandmortyapi.com/api")
-        let mainViewController = MainBuilder.build(network: network)
+        let charactersViewController = CharactersBuilder.build(network: network)
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = CustomNavigationController(rootViewController: mainViewController)
+        window.rootViewController = CustomNavigationController(rootViewController: charactersViewController)
         self.window = window
         window.makeKeyAndVisible()
     }
