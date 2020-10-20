@@ -9,6 +9,7 @@ import XCTest
 import SnapshotTesting
 @testable import Rick_and_Morty_App
 
+// swiftlint:disable force_unwrapping
 class CharacterTableViewCellTests: XCTestCase {
     
     let characterCell = CharacterTableViewCell(style: .default, reuseIdentifier: "test")
@@ -18,11 +19,11 @@ class CharacterTableViewCellTests: XCTestCase {
         // Given
         let controller = Controller(cells: [characterCell, loadingCharacterCell])
         let rick = Character(id: 1, name: "Rick Sanchez", location: Character.Location(name: "Earth", url: ""))
-        let network = ImageNetworkStub()
+        let imageDownloader = ImageDownloaderStub()
         
         // When
-        characterCell.set(character: rick, network: network)
-        loadingCharacterCell.set(character: .none)
+        characterCell.set(character: rick, imageDowloader: imageDownloader)
+        loadingCharacterCell.set(character: .none, imageDowloader: imageDownloader)
         
         // Then
         XCTAssertNotEqual(characterCell, loadingCharacterCell)
@@ -55,19 +56,14 @@ private extension CharacterTableViewCellTests {
     }
 }
 
-class ImageNetworkStub: NetworkHandler {
-    var baseURL: String = ""
+class ImageDownloaderStub: ImageDownloaderType {
+    var network: NetworkHandler = ImageNetworkStub(stubType: .success)
     
-    var session: URLSession = .shared
-    
-    func get(
-        _ path: String,
-        parameters: [String: String]?,
-        completion: @escaping (Result<SuccessResponse, FailureResponse>) -> Void
-    ) {
-        let image = UIImage(named: "Rick", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        if let imageData = image?.pngData() {
-            completion(.success(SuccessResponse(data: imageData, urlResponse: nil)))
+    func loadImage(url: String, completion: @escaping (Result<UIImage, NSError>) -> Void) {
+        network.get(url, parameters: nil) { result in
+            if case let .success(response) = result {
+                completion(.success(UIImage(data: response.data)!))
+            }
         }
     }
 }

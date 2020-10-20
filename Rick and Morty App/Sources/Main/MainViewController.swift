@@ -12,10 +12,12 @@ class MainViewController: UIViewController, AlertDisplayer {
     // MARK: Private attributes
     private let mainView = MainView()
     private var viewModel: MainViewModelType
+    private let imageDowloader: ImageDownloaderType
     
     // MARK: Init
-    init(viewModel: MainViewModelType) {
+    init(viewModel: MainViewModelType, imageDowloader: ImageDownloaderType) {
         self.viewModel = viewModel
+        self.imageDowloader = imageDowloader
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -64,7 +66,7 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.set(character: viewModel.characters[safe: indexPath.row])
+        cell.set(character: viewModel.characters[safe: indexPath.row], imageDowloader: imageDowloader)
         
         return cell
     }
@@ -72,7 +74,14 @@ extension MainViewController: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let characterId = viewModel.characters[safe: indexPath.row]?.id {
+            let detailsViewController = DetailsBuilder.build(characterId: characterId,
+                                                             network: viewModel.networkController.network,
+                                                             imageDownloader: ImageDownloader())
+            navigationController?.pushViewController(detailsViewController, animated: true)
+        }
+    }
 }
 
 // MARK: UITableViewDataSourcePrefetching

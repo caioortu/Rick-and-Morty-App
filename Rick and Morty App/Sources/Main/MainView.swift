@@ -26,7 +26,7 @@ class MainView: UIView {
     
     // MARK: Private functions
     private func setUpLayout() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         setupTableView()
         setupActivityIndicator()
     }

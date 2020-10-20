@@ -18,9 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard !isUnitTesting() else { return }
         
         let network = Network(baseURL: "https://rickandmortyapi.com/api")
-        let networkController = MainNetworkController(network: network)
-        let mainViewModel = MainViewModel(networkController: networkController)
-        let mainViewController = MainViewController(viewModel: mainViewModel)
+        let mainViewController = MainBuilder.build(network: network)
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)

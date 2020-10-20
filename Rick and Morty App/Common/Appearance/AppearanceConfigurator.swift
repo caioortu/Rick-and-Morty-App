@@ -20,5 +20,6 @@ class AppearanceConfigurator {
         navBarAppearance.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.1215686275, blue: 0.1215686275, alpha: 1)
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        UINavigationBar.appearance().tintColor = #colorLiteral(red: 0.9893319011, green: 0.5897573233, blue: 0, alpha: 1)
     }
 }

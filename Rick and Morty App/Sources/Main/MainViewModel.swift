@@ -18,6 +18,7 @@ protocol MainViewModelProtocol: AnyObject {
 protocol MainViewModelType {
     var delegate: MainViewModelProtocol? { get set }
     var characters: [Character] { get }
+    var networkController: MainNetworkControllerType { get }
     var title: String { get }
     var totalCount: Int { get }
     
@@ -29,11 +30,11 @@ class MainViewModel: MainViewModelType {
     
     // MARK: Public attributes
     weak var delegate: MainViewModelProtocol?
-    let title = ""
+    let title = "The Rick and Morty App"
     
     // MARK: Private attributes
     private(set) var characters: [Character] = []
-    private var networkController: MainNetworkControllerType
+    private(set) var networkController: MainNetworkControllerType
     private var currentPage = 1
     private var total = 0
     private var isFetchInProgress = false

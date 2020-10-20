@@ -18,7 +18,7 @@ class CharacterTableViewCell: UITableViewCell {
     private let activityIndicator = UIActivityIndicatorView()
     private let imageActivityIndicator = UIActivityIndicatorView()
     
-    private var network: NetworkHandler?
+    private var imageDowloader: ImageDownloaderType?
     private var character: Character?
     
     // MARK: Init
@@ -41,13 +41,13 @@ class CharacterTableViewCell: UITableViewCell {
     }
     
     // MARK: Public functions
-    func set(character: Character?, network: NetworkHandler = Network()) {
+    func set(character: Character?, imageDowloader: ImageDownloaderType) {
         guard let character = character else {
             activityIndicator.startAnimating()
             return
         }
         
-        self.network = network
+        self.imageDowloader = imageDowloader
         self.character = character
         
         activityIndicator.stopAnimating()
@@ -62,13 +62,13 @@ class CharacterTableViewCell: UITableViewCell {
         let characterId = character?.id
         
         imageActivityIndicator.startAnimating()
-        network?.get(url ?? "", parameters: nil) { [weak self] result in
+        imageDowloader?.loadImage(url: url ?? "") { [weak self] result in
             self?.imageActivityIndicator.stopAnimating()
             
             switch result {
-            case .success(let response):
+            case .success(let image):
                 if characterId == self?.character?.id {
-                    self?.characterImageView.image = UIImage(data: response.data)
+                    self?.characterImageView.image = image
                 }
             case .failure:
                 break
@@ -154,7 +154,6 @@ private extension CharacterTableViewCell {
         nameLabel.lineBreakMode = .byWordWrapping
         
         nameLabel.font = .systemFont(ofSize: 22, weight: .bold)
-        nameLabel.anchor()
     }
     
     func setupLocationLabel() {
